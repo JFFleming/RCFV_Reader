@@ -24,8 +24,10 @@ the 6 output files are:
 I hope you enjoy this fast new way to use normalised Relative Frequency Composition Values! If you have any questions or queries, or notice any bugs, contact me at:
 j.f.fleming\@nhm.uio.no
 ";
+#This if statement checks that the alphabet variable is valid
 if ($ARGV[0]!=~/dna/||/protein/){
 	print "WARNING: Are you sure you remembered to specify protein or dna for amino acid or nucleotide data?\n";}
+#Set up the input and output files
 my $fasta  = FAST::Bio::SeqIO->new(-file => $ARGV[1], -format => 'Fasta', -alphabet => $ARGV[0]);
 #print "my $fasta  = FAST::Bio::SeqIO->new(-file => $ARGV[1], -format => 'Fasta', -alphabet => $ARGV[0]);";
 my $seqnum=0;
@@ -42,6 +44,7 @@ open(TRCFV_OUT, '>', $tRCFV_File) or die $!;
 open(NCSRCFV_OUT,  '>', $ncsRCFV_File) or die $!;
 open(NTRCFV_OUT, '>', $ntRCFV_File) or die $!;
 
+#Nucleotide RCFV Calculator
 if ($ARGV[0]=~ /dna/){
 #print "boop";
 my %A_Lens;
@@ -56,6 +59,7 @@ my @ID_List;
 my @Length;
 
 #print OUT "NAME\tFreq(A)\tFreq(C)\tFreq(G)\tFreq(T)\n";
+#Calculate frequencies and lengths
 while ( my $seq = $fasta->next_seq() ) {
     my $stats;
     $stats->{len} = length($seq->seq);
@@ -95,7 +99,7 @@ my $T_total = eval join '+', values %T_Freqs;
 my $Total = $A_total + $C_total + $G_total + $T_total;
 
 #print $Total, "\t", $A_total, "\t", $C_total, "\t", $G_total, "\t", $T_total, "\n";
-
+#Calculate mean frequencies
 my $MeanA_Freq = ($A_total/$Total);
 my $MeanC_Freq = ($C_total/$Total);
 my $MeanG_Freq = ($G_total/$Total);
@@ -107,7 +111,7 @@ my %A_RCFV_List;
 my %C_RCFV_List;
 my %G_RCFV_List;
 my %T_RCFV_List;
-
+#Calculate csRCFV
 foreach my $Akey (keys %A_Freqs){
 	my $Mu =  abs($A_Freqs{$Akey}-$MeanA_Freq);
 	$A_RCFV_List{$Akey} = $Mu;
@@ -144,6 +148,7 @@ my $T_RCFV = $T_RCFV_Total/$A_Size;
 print TRCFV_OUT "\ntRCFV values:\n";
 print NTRCFV_OUT "\nntRCFV values:\n";
 
+#Calculate tRCFV
 my $i= 0;
 my $tRCFV;
 foreach(@ID_List){
@@ -164,6 +169,7 @@ print NCSRCFV_OUT "\ncharacter RCFV values:\ncsRCFV(A)\t", $A_RCFV/(($Length[0]*
 print RCFV_OUT "\ntotal RCFV\nRCFV\t", $RCFV, "\nnRCFV\t", $nRCFV, "\n";
 }
 
+#AA data
 elsif ($ARGV[0]=~/protein/){
 my %A_Len;
 my %V_Len;
@@ -217,6 +223,7 @@ while ( my $seq = $fasta->next_seq() ) {
     push (@Length, length($seq->seq));
     $stats->{$_}++ for split //, $seq->seq;
 #   say ++$seqnum, " @$stats{qw(len A V L I P M F W G S T C N Q Y D E K R H)}";
+#Calculate frequencies and lengths
     my $seqTotal = @$stats{qw(A)} + @$stats{qw(V)} + @$stats{qw(L)} + @$stats{qw(I)} + @$stats{qw(P)} + @$stats{qw(M)} + @$stats{qw(F)} + @$stats{qw(W)} + @$stats{qw(G)} + @$stats{qw(S)} + @$stats{qw(T)} + @$stats{qw(C)} + @$stats{qw(N)} + @$stats{qw(Q)} + @$stats{qw(Y)} + @$stats{qw(D)} + @$stats{qw(E)} + @$stats{qw(K)} + @$stats{qw(R)} + @$stats{qw(H)};
     my $seqA_Freq = @$stats{qw(A)}/$seqTotal;
     my $seqV_Freq = @$stats{qw(V)}/$seqTotal;
@@ -318,7 +325,7 @@ my $Total = $A_total + $V_total + $L_total + $I_total + $P_total + $M_total + $F
 
 
 #print $Total, "\t", $A_total, "\t", $V_total ,"\t", $L_total ,"\t", $I_total ,"\t", $P_total ,"\t", $M_total ,"\t", $F_total ,"\t", $W_total ,"\t", $G_total ,"\t", $S_total ,"\t", $T_total ,"\t", $C_total ,"\t", $N_total ,"\t", $Q_total ,"\t", $Y_total ,"\t", $D_total ,"\t", $E_total ,"\t", $K_total ,"\t", $R_total ,"\t", $H_total, "\n";
-
+#Calculate mean frequencies
 my $MeanA_Freq = ($A_total/$Total);
 my $MeanV_Freq = ($V_total/$Total);
 my $MeanL_Freq = ($L_total/$Total);
@@ -369,6 +376,7 @@ my %K_RCFV_List;
 my %R_RCFV_List;
 my %H_RCFV_List;
 
+#Calculate csRCFV
 foreach my $Akey (keys %A_Freqs){
 	my $AMu =  abs($A_Freqs{$Akey}-$MeanA_Freq);
 	$A_RCFV_List{$Akey} = $AMu;
@@ -536,6 +544,7 @@ my $H_RCFV = $H_RCFV_Total/$A_Size;
 print TRCFV_OUT "\ntRCFV values:\n";
 print NTRCFV_OUT "\nntRCFV values:\n";
 
+#Calculate tRCFV
 my $i= 0;
 my $tRCFV;
 foreach(@ID_List){
