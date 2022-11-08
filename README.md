@@ -30,7 +30,7 @@ the 6 output files are:
 - ntRCFV.txt - as per tRCFV.txt, but with ntRCFV values
 - Frequencies.txt - this file contains the per taxon character frequencies, and the mean per taxon character frequencies across the dataset (as used by RCFV, NOT the total dataset character frequencies)
 
-I hope you enjoy this fast new way to use normalised Relative Frequency Composition Values! If you have any questions or queries, or notice any bugs, contact me at:
+I hope you enjoy this fast new way to use normalised Relative Composition Frequency Variability! If you have any questions or queries, or notice any bugs, contact me at:
 j.f.fleming\@nhm.uio.no
 ==================================================================================================================================================================
 
