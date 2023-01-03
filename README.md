@@ -5,7 +5,9 @@ INSTALLATION
 In addition to perl, RCFV Reader uses the cpan module FAST::Bio::SeqIO
 You can install this module using:
 
-cpanm FAST::Bio
+```bash
+cpanm FAST
+```
 
 If you don't have cpan, you can get it here:
 https://www.cpan.org/
