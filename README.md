@@ -16,11 +16,11 @@ RCFV Reader, James F. Fleming & Torsten H Struck, 2022.
 Welcome to RCFV Reader. RCFV Reader accepts FASTA files as input, and then outputs 6 files.
 To run RCFV Reader on nucleotide data, input the command as follows:
 
-perl RCFVReader.pl dna <filename> <prefix for output files>
+perl RCFVReader.pl dna \<filename\> \<prefix for output files\>
 
 for amino acid data, input the command like this:
 
-perl RCFVReader.pl protein <filename> <prefix for output files>
+perl RCFVReader.pl protein \<filename\> \<prefix for output files\>
 
 the 6 output files are:
 - RCFV.txt - this file contains the total RCFV and nRCFV of the entire dataset.
