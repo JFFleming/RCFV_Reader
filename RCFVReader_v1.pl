@@ -5,6 +5,10 @@ use FAST::Bio::SeqIO;
 print "
 RCFV Reader, James F. Fleming & Torsten H Struck, 2022.
 Welcome to RCFV Reader. RCFV Reader accepts FASTA files as input, and then outputs 6 files.
+
+If you use RCFV Reader in a publication, please remember to cite our associated paper:
+Fleming, J.F. and Struck, T.H., 2023. nRCFV: a new, dataset-size-independent metric to quantify compositional heterogeneity in nucleotide and amino acid datasets. BMC bioinformatics, 24(1), p.145.
+
 To run RCFV Reader on nucleotide data, input the command as follows:
 
 perl RCFVReader.pl dna <filename> <prefix for output files>
